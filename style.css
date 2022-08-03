@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+section {
+    text-align: center;
+}
+
+#game-title {
+    font-size: 40px;
+}
+
+#game-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 50px auto;
+}
+
+.footer-copyright {
+    margin: 100px 50px 50px;
+}
+
+.grid-cell {
+    aspect-ratio: 1/1;
+    height: 100px;
+    box-shadow: 0 0 0 1px #333333;
+    border: 1px solid #333333;
+    cursor: pointer;
+    font-size: 60px;
+}
+
+.grid-cell:hover {
+    background-color: #fee6e3;
+}
+
+#game-restart {
+    align-items: center;
+    background-color: #fee6e3;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    font-size: 20px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+#game-restart:after {
+    background-color: #111;
+    border-radius: 8px;
+    content: "";
+    display: block;
+    height: 48px;
+    left: 0;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    transform: translate(8px, 8px);
+    transition: transform .2s ease-out;
+    z-index: -1;
+}
+
+#game-restart:hover:after {
+    transform: translate(0, 0);
+}
+
+#game-restart:active {
+    background-color: #ffdeda;
+    outline: 0;
+}
+
+#game-restart:hover {
+    outline: 0;
+}
+
+@media (min-width: 768px) {
+    #game-restart {
+        padding: 0 40px;
+    }
+}
