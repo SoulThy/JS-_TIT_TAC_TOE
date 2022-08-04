@@ -6,4 +6,5 @@ function gameRestart() {
   document
     .querySelectorAll(".grid-cell")
     .forEach((cell) => (cell.innerHTML = ""));
+    aiCheckbox.toggleAttribute("disabled",false);
 }

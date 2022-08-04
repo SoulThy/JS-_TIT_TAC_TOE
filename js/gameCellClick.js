@@ -1,4 +1,5 @@
 function gameCellClick(clickedCellEvent) {
+  aiCheckbox.toggleAttribute("disabled", true);
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = clickedCell.getAttribute("grid-cell-index");
 
@@ -10,5 +11,7 @@ function gameCellClick(clickedCellEvent) {
   clickedCell.innerHTML = currentPlayer;
 
   gameCheckResult();
-  gameTurnManager();
+  if (aiCheckbox.checked) {
+    gameComputerTurn();
+  } else gameTurnManager();
 }
