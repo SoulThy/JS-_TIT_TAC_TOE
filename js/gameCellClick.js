@@ -11,7 +11,5 @@ function gameCellClick(clickedCellEvent) {
   clickedCell.innerHTML = currentPlayer;
 
   gameCheckResult();
-  if (aiCheckbox.checked) {
-    gameComputerTurn();
-  } else gameTurnManager();
+  gameTurnManager();
 }
