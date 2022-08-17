@@ -1,5 +1,13 @@
+isGameStarted = false;
+
 function gameCellClick(clickedCellEvent) {
-  aiCheckbox.toggleAttribute("disabled", true);
+
+  if (isGameStarted === false) {
+    aiCheckbox.toggleAttribute("disabled", true);
+    isGameStarted = true;
+    console.log("game is started");
+  }
+
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = clickedCell.getAttribute("grid-cell-index");
 
