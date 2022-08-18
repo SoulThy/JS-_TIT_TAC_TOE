@@ -1,11 +1,9 @@
 isGameStarted = false;
 
 function gameCellClick(clickedCellEvent) {
-
   if (isGameStarted === false) {
     aiCheckbox.toggleAttribute("disabled", true);
     isGameStarted = true;
-    console.log("game is started");
   }
 
   const clickedCell = clickedCellEvent.target;
@@ -19,5 +17,16 @@ function gameCellClick(clickedCellEvent) {
   clickedCell.innerHTML = currentPlayer;
 
   gameCheckResult();
-  gameTurnManager();
+  swapCurrentPlayer();
+  if (aiCheckbox.checked && gameActive === true) {
+    gameCpuMove();
+    gameCheckResult();
+    swapCurrentPlayer();
+  }
+}
+
+function swapCurrentPlayer() {
+  if (gameActive === false) return;
+  currentPlayer = currentPlayer == "X" ? "O" : "X";
+  gameStatus.innerHTML = currentPlayerTurn();
 }
