@@ -3,7 +3,6 @@ let currentPlayer = "X";
 let cellsStatus = ["", "", "", "", "", "", "", "", ""];
 let aiCheckbox = document.getElementById("game-ai-checkbox");
 
-
 const currentPlayerTurn = () => `It's [ ${currentPlayer} ]'s turn`;
 const winMessage = () => `Player [ ${currentPlayer} ] has won!`;
 const drawMessage = () => `Game ended in a draw!`;
