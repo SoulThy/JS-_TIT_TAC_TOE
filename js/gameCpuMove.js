@@ -1,6 +1,4 @@
 function gameCpuMove() {
-  if (gameActive === false) return;
-
   let cellsAvailabe = [];
   cellsStatus.forEach((x, index) => {
     if (x === "") {
@@ -9,9 +7,7 @@ function gameCpuMove() {
   });
   //first AI move
   winConditions = winningConditions();
-  console.log(winConditions.length);
   if (winConditions.length === 0) {
-    console.log("The move is going to me completely random");
     chooseCell(cellsAvailabe);
   } else {
     chooseCell(winConditions);
@@ -57,7 +53,7 @@ function winningConditions() {
       blueprint_WinConditions[index]
         .filter(
           (value) =>
-            value != blueprint_WinConditions[index][winCondition.indexOf("O")]
+            value == blueprint_WinConditions[index][winCondition.indexOf("")]
         )
         .forEach((elem) => {
           winConditions.push(elem);
