@@ -43,6 +43,16 @@ function winningConditions() {
       );
       return winConditions;
     } else if (
+      !winCondition.includes("O") &&
+      winCondition.includes("") &&
+      winCondition.filter((theX) => theX === "X").length === 2
+    ) {
+      winConditions.splice(0, winConditions.length);
+      winConditions.push(
+        blueprint_WinConditions[index][winCondition.indexOf("")]
+      );
+      return winConditions;
+    } else if (
       //CASE => 1:"O" / 2:"" / 0:"X"  {NOT A 100% WINNING CASE}
       winCondition.includes("") &&
       !winCondition.includes("X") &&
