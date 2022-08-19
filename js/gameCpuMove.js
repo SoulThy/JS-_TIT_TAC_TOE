@@ -37,6 +37,7 @@ function winningConditions() {
       winCondition.includes("") &&
       winCondition.filter((theO) => theO === "O").length === 2
     ) {
+      winConditions.splice(0, winConditions.length);
       winConditions.push(
         blueprint_WinConditions[index][winCondition.indexOf("")]
       );
