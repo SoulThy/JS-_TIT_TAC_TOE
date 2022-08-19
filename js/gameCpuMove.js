@@ -1,8 +1,5 @@
 function gameCpuMove() {
-    chooseCell(winningConditions());
-    // 1) have to check if the AI has a possible winning condition (could be multiple).
-    // 2) if there is no AI winning condition, then check for the opponent winning conditions and deny it (could be multiple).
-    // 3) else place in a favorable spot the "O".
+  chooseCell(winningConditions());
 }
 
 function chooseCell(cellsAvailable) {
@@ -14,8 +11,8 @@ function chooseCell(cellsAvailable) {
 }
 
 function winningConditions() {
-  const winConditions = []; //array that is returned, it contains the "open" spots where is possible to place the "O" 
-  
+  const winConditions = []; //array that is returned, it contains the "open" spots where is possible to place the "O"
+
   const blueprint_WinConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -33,29 +30,39 @@ function winningConditions() {
     winCondition[2] = cellsStatus[winCondition[2]];
   });
 
-  symbolWinConditions.forEach((winCondition, index) => {
-    //CASE => 2:"O" / 1:"" / 0:"X" {100% WINNING CASE}
-    if ( //CASE => 1:"O" / 2:"" / 0:"X"  {NOT A 100% WINNING CASE}
+  for (const [index, winCondition] of symbolWinConditions.entries()) {
+    if (
+      //CASE => 2:"O" / 1:"" / 0:"X" {100% WINNING CASE}
+      !winCondition.includes("X") &&
+      winCondition.includes("") &&
+      winCondition.filter((theO) => theO === "O").length === 2
+    ) {
+      winConditions.push(
+        blueprint_WinConditions[index][winCondition.indexOf("")]
+      );
+      return winConditions;
+    } else if (
+      //CASE => 1:"O" / 2:"" / 0:"X"  {NOT A 100% WINNING CASE}
       winCondition.includes("") &&
       !winCondition.includes("X") &&
       winCondition.includes("O")
     ) {
-      blueprint_WinConditions[index]
-        .filter(
-          (value) =>
-            value == blueprint_WinConditions[index][winCondition.indexOf("")]
-        )
-        .forEach((elem) => {
-          winConditions.push(elem);
-        });
+      winCondition.forEach((spot, secIndex) => {
+        if (spot === "") {
+          winConditions.push(blueprint_WinConditions[index][secIndex]);
+        }
+      });
     }
-  });
-  if (winConditions.length === 0){ //if the optimal win conditions don't exist, it will fill the array with all the open spots.
+  }
+
+  if (winConditions.length === 0) {
+    //if the optimal win conditions don't exist, it will fill the array with all the open spots.
     cellsStatus.forEach((x, index) => {
       if (x === "") {
         winConditions.push(index);
       }
     });
   }
+
   return winConditions;
 }
