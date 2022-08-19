@@ -1,32 +1,21 @@
 function gameCpuMove() {
-  let cellsAvailabe = [];
-  cellsStatus.forEach((x, index) => {
-    if (x === "") {
-      cellsAvailabe.push(index);
-    }
-  });
-  //first AI move
-  winConditions = winningConditions();
-  if (winConditions.length === 0) {
-    chooseCell(cellsAvailabe);
-  } else {
-    chooseCell(winConditions);
+    chooseCell(winningConditions());
     // 1) have to check if the AI has a possible winning condition (could be multiple).
-    // 2) if there is no AI winning condition, then check for the opponent winnin conditions and deny it (could be multiple).
+    // 2) if there is no AI winning condition, then check for the opponent winning conditions and deny it (could be multiple).
     // 3) else place in a favorable spot the "O".
-  }
 }
 
-function chooseCell(cellsAvailabe) {
-  rngValue = Math.floor(Math.random() * cellsAvailabe.length);
-  cellsStatus[cellsAvailabe[rngValue]] = "O";
+function chooseCell(cellsAvailable) {
+  rngValue = Math.floor(Math.random() * cellsAvailable.length);
+  cellsStatus[cellsAvailable[rngValue]] = "O";
   document.querySelector(
-    `[grid-cell-index="${cellsAvailabe[rngValue]}"]`
+    `[grid-cell-index="${cellsAvailable[rngValue]}"]`
   ).innerHTML = "O";
 }
 
 function winningConditions() {
-  const winConditions = []; //array that is return, contains spots where to place "O"
+  const winConditions = []; //array that is returned, it contains the "open" spots where is possible to place the "O" 
+  
   const blueprint_WinConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -45,7 +34,8 @@ function winningConditions() {
   });
 
   symbolWinConditions.forEach((winCondition, index) => {
-    if (
+    //CASE => 2:"O" / 1:"" / 0:"X" {100% WINNING CASE}
+    if ( //CASE => 1:"O" / 2:"" / 0:"X"  {NOT A 100% WINNING CASE}
       winCondition.includes("") &&
       !winCondition.includes("X") &&
       winCondition.includes("O")
@@ -60,5 +50,12 @@ function winningConditions() {
         });
     }
   });
+  if (winConditions.length === 0){ //if the optimal win conditions don't exist, it will fill the array with all the open spots.
+    cellsStatus.forEach((x, index) => {
+      if (x === "") {
+        winConditions.push(index);
+      }
+    });
+  }
   return winConditions;
 }
